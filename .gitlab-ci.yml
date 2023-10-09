@@ -1,0 +1,32 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+stages:
+  - build
+  - test
+  - release
+
+build:
+  stage: build
+  script:
+    - pwd
+    - ls -R
+    - cd KeepNoteStep4
+    - dotnet build
+
+test:
+  stage: test
+  script:
+    - pwd
+    - ls -R
+    - cd KeepNoteStep4
+    - dotnet test
+
+release:
+  stage: release
+  only:
+    - master
+  artifacts:
+    paths:
+      - publish/
+  script:
+    - dotnet publish -c Release -o ../publish KeepNoteStep4/KeepNoteStep4.csproj
